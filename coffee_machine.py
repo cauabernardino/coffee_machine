@@ -13,11 +13,14 @@ def return_coins(price, payment):
     if payment == price:
         return print("Paid! No change needed.")
     
+    # List with coins present in Euro currency
     euro_coins = [0.01, 0.02, 0.05, 0.10, 0.20, 0.50, 1.0, 2.0]
     
+    # Total change owed
     change = payment - price
     print(f"Change owed: {round(change, 2)}\n")
 
+    # Greedy algorithm initialization
     change_coins = {}
     current = max(euro_coins)
     
@@ -36,7 +39,7 @@ def return_coins(price, payment):
             euro_coins.remove(current)
             current = max(euro_coins)
 
-    # Printing
+    # Final printing
     print(f"{'Coins':^8} {'Amount':^6}")
 
     for coin, amount in change_coins.items():
