@@ -11,14 +11,14 @@ def return_coins(price, payment):
     
     # Check for the need of payment
     if payment == price:
-        return print("Paid! No change needed.")
+        return False
     
     # List with coins present in Euro currency
     euro_coins = [0.01, 0.02, 0.05, 0.10, 0.20, 0.50, 1.0, 2.0]
     
     # Total change owed
     change = payment - price
-    print(f"Change owed: {round(change, 2)}\n")
+    print(f"Change owed: EUR {round(change, 2)}\n")
 
     # Greedy algorithm initialization
     change_coins = {}
@@ -39,20 +39,34 @@ def return_coins(price, payment):
             euro_coins.remove(current)
             current = max(euro_coins)
 
-    # Final printing
-    print(f"{'Coins':^8} {'Amount':^6}")
+    # Return the dict with coins as keys and amount as values
+    return change_coins
 
-    for coin, amount in change_coins.items():
-        print(f"{coin:.2f} EUR: {amount:^6}")
 
+def print_coins(coin_dict):
+    """
+    Function to print formatted final output
+    """
+    if coin_dict:
+        print(f"{'Coins':^9} {'Amount':^6}")
+
+        for coin, amount in coin_dict.items():
+            print(f"EUR {coin:.2f}: {amount:^6}")
+
+        print(f"\nTotal coins: {sum(coin_dict.values())}")
+    else:
+        print("Paid! No change needed.")
+    
     return 0
 
 
 if __name__ == "__main__":
     
+    # Initialization
     coffee_price = 0
     eur_inserted = 0
 
+    # Loop for getting positive numbers
     try:
         while coffee_price <= 0:
             coffee_price = float(input("Insert coffee price (EUR): "))
@@ -61,15 +75,20 @@ if __name__ == "__main__":
             eur_inserted = float(input("Insert payment (EUR): "))
         
         while coffee_price > eur_inserted:
-            print(f"{round(coffee_price - eur_inserted, 2)} EUR remaining")
+            print(f"EUR {round(coffee_price - eur_inserted, 2)} remaining")
             eur_inserted += float(input("Insert remaining (EUR): ")) 
 
-        print(f"\nTotal inserted: {eur_inserted}.")
+        print(f"\nTotal inserted: EUR {eur_inserted}")
 
     except ValueError:
         print("Words are not currencies... yet.")
         sys.exit(1)
 
-    return_coins(coffee_price, eur_inserted)
+    
+    # Calculation of coins amount
+    coins_amount = return_coins(coffee_price, eur_inserted)
 
+    # Final printing
+    print_coins(coins_amount)
+    
     sys.exit(0)
