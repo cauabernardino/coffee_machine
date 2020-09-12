@@ -45,13 +45,13 @@ def return_coins(price, payment):
 
 def print_coins(coin_dict):
     """
-    Function to print formatted final output
+    Function to print formatted final output. Prints coins with non-zero amounts.
     """
     if coin_dict:
-        print(f"{'Coins':^9} {'Amount':^6}")
+        print(f"{'Coins':^9} {'Amount':^7}")
 
         for coin, amount in coin_dict.items():
-            print(f"EUR {coin:.2f}: {amount:^6}")
+            print(f"EUR {coin:.2f}: {amount:^7}")
 
         print(f"\nTotal coins: {sum(coin_dict.values())}")
     else:
@@ -81,9 +81,8 @@ if __name__ == "__main__":
         print(f"\nTotal inserted: EUR {eur_inserted}")
 
     except ValueError:
-        print("Words are not currencies... yet.")
+        print("Nice words won't pay my bills... (Actually, I just run with numbers!)")
         sys.exit(1)
-
     
     # Calculation of coins amount
     coins_amount = return_coins(coffee_price, eur_inserted)
