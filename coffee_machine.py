@@ -1,6 +1,42 @@
 #!/usr/bin/env python3
 
-import sys
+
+def main():
+
+    # Initialization
+    coffee_price = 0
+    eur_inserted = 0
+
+    # Loop for getting positive numbers
+    try:
+        while coffee_price <= 0:
+            coffee_price = float(input("Insert coffee price (EUR): "))
+
+        while eur_inserted <= 0:
+            eur_inserted = float(input("Insert payment (EUR): "))
+        
+        while coffee_price > eur_inserted: 
+            print(f"EUR {round(coffee_price - eur_inserted, 2)} remaining")
+            check_insert = float(input("Insert remaining (EUR): "))
+            if check_insert <= 0:
+                continue
+            else: 
+                eur_inserted += check_insert
+
+        print(f"\nTotal inserted: EUR {eur_inserted}")
+
+    except ValueError:
+        print("Actually, I just run with numbers!")
+        return
+    
+    # Calculation of coins amount
+    coins_amount = return_coins(coffee_price, eur_inserted)
+
+    # Final printing
+    print_coins(coins_amount)
+    
+    return 0
+
 
 def return_coins(price, payment):
     """
@@ -61,33 +97,4 @@ def print_coins(coin_dict):
 
 
 if __name__ == "__main__":
-    
-    # Initialization
-    coffee_price = 0
-    eur_inserted = 0
-
-    # Loop for getting positive numbers
-    try:
-        while coffee_price <= 0:
-            coffee_price = float(input("Insert coffee price (EUR): "))
-
-        while eur_inserted <= 0:
-            eur_inserted = float(input("Insert payment (EUR): "))
-        
-        while coffee_price > eur_inserted:
-            print(f"EUR {round(coffee_price - eur_inserted, 2)} remaining")
-            eur_inserted += float(input("Insert remaining (EUR): ")) 
-
-        print(f"\nTotal inserted: EUR {eur_inserted}")
-
-    except ValueError:
-        print("Nice words won't pay my bills... (Actually, I just run with numbers!)")
-        sys.exit(1)
-    
-    # Calculation of coins amount
-    coins_amount = return_coins(coffee_price, eur_inserted)
-
-    # Final printing
-    print_coins(coins_amount)
-    
-    sys.exit(0)
+    main()
