@@ -27,7 +27,7 @@ def main():
 
     except ValueError:
         print("Actually, I just run with numbers!")
-        return
+        return 1
     
     # Calculation of coins amount
     coins_amount = return_coins(coffee_price, eur_inserted)
@@ -53,7 +53,7 @@ def return_coins(price, payment):
     euro_coins = [0.01, 0.02, 0.05, 0.10, 0.20, 0.50, 1.0, 2.0]
     
     # Total change owed
-    change = payment - price
+    change = round(payment - price, 2)
     print(f"Change owed: EUR {round(change, 2)}\n")
 
     # Greedy algorithm initialization
